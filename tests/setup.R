@@ -9,7 +9,7 @@ piaac_cat <-
 		output_dir = file.path( getwd() ) )
 
 # download the microdata to your local computer
-lodown( "piaac" , piaac_cat )
+
 
 library(survey)
 library(mitools)
