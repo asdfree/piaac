@@ -100,10 +100,10 @@ MIcombine( with( piaac_design ,
 MIcombine( with( piaac_design ,
 	svymean( ~ pvnum , na.rm = TRUE , deff = "replace" )
 ) )
-lodown:::MIsvyciprop( ~ working_at_paid_job_last_week , piaac_design ,
+MIsvyciprop( ~ working_at_paid_job_last_week , piaac_design ,
 	method = "likelihood" )
-lodown:::MIsvyttest( pvnum ~ working_at_paid_job_last_week , piaac_design )
-lodown:::MIsvychisq( ~ working_at_paid_job_last_week + sex , piaac_design )
+MIsvyttest( pvnum ~ working_at_paid_job_last_week , piaac_design )
+MIsvychisq( ~ working_at_paid_job_last_week + sex , piaac_design )
 glm_result <- 
 	MIcombine( with( piaac_design ,
 		svyglm( pvnum ~ working_at_paid_job_last_week + sex )
