@@ -58,12 +58,17 @@ MIcombine( with( piaac_design , svytotal( ~ sex ) ) )
 MIcombine( with( piaac_design ,
 	svyby( ~ sex , ~ age_categories , svytotal )
 ) )
-MIcombine( with( piaac_design , svyquantile( ~ pvnum , 0.5 , se = TRUE , na.rm = TRUE ) ) )
+MIcombine( with( piaac_design ,
+	svyquantile(
+		~ pvnum ,
+		0.5 , se = TRUE , na.rm = TRUE 
+) ) )
 
 MIcombine( with( piaac_design ,
-	svyby( 
-		~ pvnum , ~ age_categories , svyquantile , 0.5 ,
-		se = TRUE , keep.var = TRUE , ci = TRUE , na.rm = TRUE
+	svyby(
+		~ pvnum , ~ age_categories , svyquantile ,
+		0.5 , se = TRUE ,
+		keep.var = TRUE , ci = TRUE , na.rm = TRUE
 ) ) )
 MIcombine( with( piaac_design ,
 	svyratio( numerator = ~ pvnum , denominator = ~ pvlit , na.rm = TRUE )
