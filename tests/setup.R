@@ -25,7 +25,12 @@ piaac_design <-
 		
 		sex = factor( gender_r , labels = c( "male" , "female" ) ) ,
 
-		age_categories = factor( ageg10lfs , levels = 1:5 , labels = c( "24 or less" , "25-34" , "35-44" , "45-54" , "55 plus" ) ) ,
+		age_categories = 
+			factor( 
+				ageg10lfs , 
+				levels = 1:5 , 
+				labels = c( "24 or less" , "25-34" , "35-44" , "45-54" , "55 plus" ) 
+			) ,
 		
 		working_at_paid_job_last_week = as.numeric( c_q01a == 1 )
 		
@@ -115,4 +120,23 @@ glm_result <-
 	) )
 	
 summary( glm_result )
+
+austria_design <- readRDS( file.path( getwd() , "prgautp1 design.rds" ) )
+
+austria_pvlit <-
+	MIcombine( with( austria_design , svymean( ~ pvlit , na.rm = TRUE ) ) )
+	
+austria_pvnum <-
+	MIcombine( with( austria_design , svymean( ~ pvnum , na.rm = TRUE ) ) )
+
+austria_pvpsl <-
+	MIcombine( with( austria_design , svymean( ~ pvpsl , na.rm = TRUE ) ) )
+	
+# confirm each estimate and standard error matches the published statistics
+stopifnot( round( coef( austria_pvlit ) ) == 269 )
+stopifnot( round( SE( austria_pvlit ) , 1 ) == 0.7 )
+stopifnot( round( coef( austria_pvnum ) ) == 275 )
+stopifnot( round( SE( austria_pvnum ) , 1 ) == 0.9 )
+stopifnot( round( coef( austria_pvpsl ) ) == 284 )
+stopifnot( round( SE( austria_pvpsl ) , 1 ) == 0.7 )
 
