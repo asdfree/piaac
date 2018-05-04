@@ -4,7 +4,7 @@ Title: piaac
 Version: 0.1.0
 Author: Anthony Joseph Damico
 Maintainer: Anthony Joseph Damico <ajdamico@gmail.com>
-Description: A continuous integration package, tested on ajdamico/asdfree commit 65348550c693333330a7387088e163eefcfd8181 ajdamico/lodown commit d21ea38747807c51a9802d1f0739abcb5a10b83b
+Description: A continuous integration package, tested on ajdamico/asdfree commit 5fb46c0b72d939a4d130d4876a2d85d3520392c7 ajdamico/lodown commit d21ea38747807c51a9802d1f0739abcb5a10b83b
 License: GPL-3
 Imports: survey, mitools, lodown
 Encoding: UTF-8

@@ -121,7 +121,8 @@ glm_result <-
 	
 summary( glm_result )
 
-austria_design <- readRDS( file.path( getwd() , "prgautp1 design.rds" ) )
+austria_design <-
+	readRDS( file.path( getwd() , "prgautp1 design.rds" ) )
 
 austria_pvlit <-
 	MIcombine( with( austria_design , svymean( ~ pvlit , na.rm = TRUE ) ) )
