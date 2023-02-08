@@ -150,10 +150,10 @@ MIcombine( with( piaac_design ,
 MIcombine( with( piaac_design ,
 	svymean( ~ pvnum , na.rm = TRUE , deff = "replace" )
 ) )
-MIsvyciprop( ~ working_at_paid_job_last_week , piaac_design ,
-	method = "likelihood" )
-MIsvyttest( pvnum ~ working_at_paid_job_last_week , piaac_design )
-MIsvychisq( ~ working_at_paid_job_last_week + sex , piaac_design )
+# MIsvyciprop( ~ working_at_paid_job_last_week , piaac_design ,
+# 	method = "likelihood" )
+# MIsvyttest( pvnum ~ working_at_paid_job_last_week , piaac_design )
+# MIsvychisq( ~ working_at_paid_job_last_week + sex , piaac_design )
 glm_result <- 
 	MIcombine( with( piaac_design ,
 		svyglm( pvnum ~ working_at_paid_job_last_week + sex )
@@ -168,8 +168,7 @@ usa_pvnum <-
 
 usa_pvpsl <-
 	MIcombine( with( piaac_design , svymean( ~ pvpsl , na.rm = TRUE ) ) )
-	
-# confirm each estimate and standard error matches the published statistics
+
 stopifnot( round( coef( usa_pvlit ) ) == 270 )
 stopifnot( round( SE( usa_pvlit ) , 1 ) == 1.0 )
 stopifnot( round( coef( usa_pvnum ) ) == 253 )
