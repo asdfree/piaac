@@ -1,17 +1,15 @@
 # what color collar
 # workforce poets, potters, or
 # pythagoreans
+options( timeout = 999 )
+
 tf <- tempfile()
 
 this_url <- "https://webfs.oecd.org/piaac/puf-data/CSV/Prgusap1_2017.csv"
 
 download.file( this_url , tf , mode = 'wb' )
 
-unzipped_files <- unzip( tf , exdir = tempdir() )
-
-piaac_csv <- grep( '\\.csv$' , unzipped_files , value = TRUE )
-
-piaac_df <- read.csv( piaac_csv )
+piaac_df <- read.csv( tf )
 
 names( piaac_df ) <- tolower( names( piaac_df ) )
 
