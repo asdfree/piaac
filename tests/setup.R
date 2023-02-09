@@ -3,13 +3,11 @@
 # pythagoreans
 library(haven)
 
-options( timeout = 999 )
-
 tf <- tempfile()
 
 this_url <- "https://webfs.oecd.org/piaac/puf-data/SAS/SAS7BDAT/prgusap1_2012.sas7bdat"
 
-download.file( this_url , tf , mode = 'wb' )
+download.file( this_url , tf , mode = 'wb' , method = 'curl' )
 
 piaac_tbl <- read_sas( tf )
 
