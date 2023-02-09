@@ -6,6 +6,6 @@ Author: Anthony Joseph Damico
 Maintainer: Anthony Joseph Damico <ajdamico@gmail.com>
 Description: A continuous integration dummy package
 License: GPL-3
-Imports: haven, httr, survey, mitools
+Imports: haven, RCurl, survey, mitools
 Encoding: UTF-8
 LazyData: true

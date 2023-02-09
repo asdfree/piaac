@@ -2,13 +2,13 @@
 # workforce poets, potters, or
 # pythagoreans
 library(haven)
-library(httr)
+library(RCurl)
 
 tf <- tempfile()
 
 this_url <- "https://webfs.oecd.org/piaac/puf-data/SAS/SAS7BDAT/prgusap1_2012.sas7bdat"
 
-GET( this_url , write_disk( path = tf ) )
+writeBin( getBinaryURL( url = this_url , ssl.verifypeer = FALSE ) , tf )
 
 piaac_tbl <- read_sas( tf )
 
