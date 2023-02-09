@@ -27,11 +27,6 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-    
-        - name: Install openssl&libssl-dev
-          run: |  
-          sudo apt-get install libcurl4-openssl-dev
-
       - uses: actions/checkout@v3
 
       - uses: r-lib/actions/setup-pandoc@v2
