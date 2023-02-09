@@ -1,5 +1,10 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 
 name: R-CMD-check
 
@@ -7,7 +12,7 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.ssl-backend || 'native' }})
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
       fail-fast: false
@@ -15,14 +20,16 @@ jobs:
         config:
           - {os: macOS-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'release', ssl-backend: openssl}
+          - {os: ubuntu-latest,   r: 'release'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
+      - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-r@v2
         with:
@@ -30,19 +37,20 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - shell: bash
-        if: runner.os == 'linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: rcmdcheck
 
-      - shell: Rscript {0}
-        run: |
-          install.packages('curl', repos = 'https://cran.r-project.org')
+      - uses: r-lib/actions/check-r-package@v2
 
-      - shell: Rscript {0}
-        run: |
-          h <- curl::new_handle(verbose=TRUE,ssl_verifyhost=FALSE,ssl_verifypeer=FALSE)
-          curl::curl_fetch_memory('https://crandb.r-pkg.org/dplyr/all', handle = h)
-        env:
-          CURL_SSL_BACKEND: ${{ matrix.config.ssl-backend }}
+      - name: Show testthat output
+        if: always()
+        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
+        shell: bash
+
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@main
+        with:
+          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+          path: check
