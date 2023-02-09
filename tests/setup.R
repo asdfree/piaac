@@ -35,7 +35,11 @@ for(k in 1:10){
 
 	}
 	
-	if( k == 1 ) piaac_mi <- list( piaac_imp ) else piaac_mi <- c( piaac_mi , list( piaac_imp ) )
+	if( k == 1 ){
+		piaac_mi <- list( piaac_imp )
+	} else {
+		piaac_mi <- c( piaac_mi , list( piaac_imp ) )
+	}
 }
 
 jk.method <- unique( piaac_df[ , 'vemethod' ] )
