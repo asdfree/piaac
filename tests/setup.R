@@ -15,7 +15,6 @@ piaac_tbl <- read_sas( tf )
 piaac_df <- data.frame( piaac_tbl )
 
 names( piaac_df ) <- tolower( names( piaac_df ) )
-
 library(survey)
 library(mitools)
 
