@@ -15,6 +15,9 @@ piaac_tbl <- read_sas( tf )
 piaac_df <- data.frame( piaac_tbl )
 
 names( piaac_df ) <- tolower( names( piaac_df ) )
+# piaac_fn <- file.path( path.expand( "~" ) , "PIAAC" , "this_file.rds" )
+# saveRDS( piaac_df , file = piaac_fn , compress = FALSE )
+# piaac_df <- readRDS( piaac_fn )
 library(survey)
 library(mitools)
 
